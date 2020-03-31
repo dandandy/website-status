@@ -3,7 +3,7 @@ const request = require('request-promise')
 
 const requestListener = function (req, res) {
     res.writeHead(200);
-    Object.keys(websiteState).forEach(url => status(url)(b => websiteState[url] = b))
+    update()
     res.end(render());
 }
 
@@ -21,7 +21,11 @@ var websiteState = {
   "https://www.google.com": undefined,
   "aaaaa": undefined
 }
-
+const update = () => {
+  Object.keys(websiteState).forEach(url => status(url)(b => websiteState[url] = b))
+}
 const render = () => {
   return Object.keys(websiteState).reduce((prev, cur) => prev + "\n" + cur + " " + (websiteState[cur] ? "available" : "down or unknown"), "")
 }
+
+update()
